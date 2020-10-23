@@ -1,5 +1,4 @@
 ﻿using SalaryCalculator.Service.Interface;
-using SalaryCalculator.Service.Model;
 using SalaryCalculator.Web.Models;
 using System.Collections.Generic;
 using System.Linq;

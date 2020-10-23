@@ -2,6 +2,7 @@
 using SalaryCalculator.Repository.Interface;
 using SalaryCalculator.Repository.Model;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace SalaryCalculator.Repository.Service
 {
@@ -9,7 +10,7 @@ namespace SalaryCalculator.Repository.Service
     {
         public List<Employee> Get()
         {
-            var api = @"http://masglobaltestapi.azurewebsites.net/api/Employees";
+            var api = ConfigurationManager.AppSettings["EmployeeApi"];
 
             var response = api.GetJsonAsync<List<Employee>>();
 

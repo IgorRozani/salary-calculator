@@ -23,10 +23,10 @@ namespace SalaryCalculator.Service.Service
         {
             var employees = _employeeRepository.Get();
 
-            return employees.Select(ConvertEmployeeToModel).ToList();
+            return employees.Select(ConvertToModel).ToList();
         }
 
-        private Employee ConvertEmployeeToModel(Repository.Model.Employee employee)
+        private Employee ConvertToModel(Repository.Model.Employee employee)
         {
             Employee employeeModel = employee;
             employeeModel.AnualSalary = _salaryCalculatorFactory.Get(employeeModel.ContractType).Calculate(employeeModel);
