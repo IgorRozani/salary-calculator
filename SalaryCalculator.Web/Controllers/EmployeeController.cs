@@ -1,7 +1,5 @@
-﻿using SalaryCalculator.Repository.Service;
-using SalaryCalculator.Service.CalculatorFactory;
+﻿using SalaryCalculator.Service.Interface;
 using SalaryCalculator.Service.Model;
-using SalaryCalculator.Service.Service;
 using SalaryCalculator.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +9,11 @@ namespace SalaryCalculator.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private EmployeeService _employeeService;
+        private IEmployeeService _employeeService;
 
-        public EmployeeController()
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeService = new EmployeeService(new EmployeeRepository(), new CalculatorFactory());
+            _employeeService = employeeService;
         }
 
         // GET: Employee
@@ -25,7 +23,9 @@ namespace SalaryCalculator.Web.Controllers
             if (id.HasValue)
             {
                 var employee = _employeeService.Get(id.Value);
-                employees.Add(ConvertToViewModel(employee));
+
+                if (employee != null)
+                    employees.Add(ConvertToViewModel(employee));
             }
             else
                 employees = _employeeService.GetAll().Select(ConvertToViewModel).ToList();
@@ -36,6 +36,9 @@ namespace SalaryCalculator.Web.Controllers
         public ActionResult Details(int id)
         {
             var employee = _employeeService.Get(id);
+
+            if (employee == null)
+                return RedirectToAction("Index");
 
             return View(ConvertToDetailsViewModel(employee));
         }

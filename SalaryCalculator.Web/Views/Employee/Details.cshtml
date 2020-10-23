@@ -1,14 +1,22 @@
 ﻿@model SalaryCalculator.Web.Models.EmployeeDetailsViewModel
 
 @{
-        ViewBag.Title = "Employees";
+        ViewBag.Title = "Employee";
     }
 
-<h2>Details</h2>
+<h2>Employee Details</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
