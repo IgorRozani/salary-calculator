@@ -5,7 +5,7 @@
 @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
 {
     <div style="margin-bottom: 20px;">
-        @Html.TextBox("id")
+        @Html.TextBox("id",null, new { type = "number", min = "0"})
         <input type="submit" value="Get Employees" />
     </div>
 }
