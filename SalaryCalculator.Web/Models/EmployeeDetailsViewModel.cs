@@ -8,7 +8,7 @@ namespace SalaryCalculator.Web.Models
         public int Id { get; set; }
         public string Name { get; set; }
         [DisplayName("Anual salary")]
-        public decimal AnualSalary { get; set; }
+        public string AnualSalary { get; set; }
         [DisplayName("Contract Type")]
         public string ContractTypeName { get; set; }
         [DisplayName("Role name")]
@@ -20,7 +20,7 @@ namespace SalaryCalculator.Web.Models
         {
             return new EmployeeDetailsViewModel
             {
-                AnualSalary = employee.AnualSalary,
+                AnualSalary = employee.AnualSalary.ToString("C"),
                 ContractTypeName = employee.ContractType == Service.Enum.ContractType.HourlySalaryEmployee ? "Hourly salary" : "Monthly salary",
                 Id = employee.Id,
                 Name = employee.Name,
