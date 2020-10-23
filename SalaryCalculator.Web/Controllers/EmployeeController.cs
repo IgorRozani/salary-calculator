@@ -25,10 +25,10 @@ namespace SalaryCalculator.Web.Controllers
                 var employee = _employeeService.Get(id.Value);
 
                 if (employee != null)
-                    employees.Add(ConvertToViewModel(employee));
+                    employees.Add((EmployeeViewModel)employee);
             }
             else
-                employees = _employeeService.GetAll().Select(ConvertToViewModel).ToList();
+                employees = _employeeService.GetAll().Select(e => (EmployeeViewModel)e).ToList();
 
             return View(employees);
         }
@@ -40,30 +40,9 @@ namespace SalaryCalculator.Web.Controllers
             if (employee == null)
                 return RedirectToAction("Index");
 
-            return View(ConvertToDetailsViewModel(employee));
-        }
+            EmployeeDetailsViewModel employeeViewModel = employee;
 
-        private EmployeeViewModel ConvertToViewModel(Employee employee)
-        {
-            return new EmployeeViewModel
-            {
-                AnualSalary = employee.AnualSalary,
-                Id = employee.Id,
-                Name = employee.Name
-            };
-        }
-
-        private EmployeeDetailsViewModel ConvertToDetailsViewModel(Employee employee)
-        {
-            return new EmployeeDetailsViewModel
-            {
-                AnualSalary = employee.AnualSalary,
-                ContractTypeName = employee.ContractType == Service.Enum.ContractType.HourlySalaryEmployee ? "Hourly salary" : "Monthly salary",
-                Id = employee.Id,
-                Name = employee.Name,
-                RoleName = employee.Role.Name,
-                RoleDescription = employee.Role.Description
-            };
+            return View(employeeViewModel);
         }
     }
 }

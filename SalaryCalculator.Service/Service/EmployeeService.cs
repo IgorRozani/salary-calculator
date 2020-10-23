@@ -1,6 +1,5 @@
 ﻿using SalaryCalculator.Repository.Interface;
 using SalaryCalculator.Service.CalculatorFactory.Interface;
-using SalaryCalculator.Service.Enum;
 using SalaryCalculator.Service.Interface;
 using SalaryCalculator.Service.Model;
 using System.Collections.Generic;
@@ -29,22 +28,8 @@ namespace SalaryCalculator.Service.Service
 
         private Employee ConvertEmployeeToModel(Repository.Model.Employee employee)
         {
-            var contractType = (ContractType)System.Enum.Parse(typeof(ContractType), employee.ContractTypeName);
-            var employeeModel = new Employee
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                ContractType = contractType,
-                Role = new Role
-                {
-                    Id = employee.RoleId,
-                    Name = employee.RoleName,
-                    Description = employee.RoleDescription
-                },
-                HourlySalary = employee.HourlySalary,
-                MonthlySalary = employee.MonthlySalary,
-            };
-            employeeModel.AnualSalary = _salaryCalculatorFactory.Get(contractType).Calculate(employeeModel);
+            Employee employeeModel = employee;
+            employeeModel.AnualSalary = _salaryCalculatorFactory.Get(employeeModel.ContractType).Calculate(employeeModel);
 
             return employeeModel;
         }
